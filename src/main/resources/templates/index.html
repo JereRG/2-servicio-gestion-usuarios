@@ -4,25 +4,71 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perfiles y Relaciones</title>
-    <!-- Actualiza la ruta del archivo CSS -->
-    <link rel="stylesheet" href="/static/css/styles.css">
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f2f5;
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        .profiles-container, .relations-container {
+            margin: 20px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-card, .relation-card {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-card img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .profile-card h3 {
+            margin: 0;
+            font-size: 1.2em;
+            color: #333;
+        }
+
+        .profile-card p {
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        .relation-card p {
+            font-size: 0.9em;
+            color: #333;
+        }
+    </style>
 </head>
 <body>
     <div class="profiles-container">
         <h1>Perfiles de Usuarios</h1>
-        
-        <!-- Mostrar todos los perfiles -->
-        <div id="profilesList">
-            <!-- Los perfiles se iteran con JavaScript -->
-        </div>
+        <div id="profilesList"></div>
     </div>
 
     <div class="relations-container">
         <h2>Relaciones de Seguimiento</h2>
-        <!-- Mostrar las relaciones de un usuario con sus seguidores y seguidos -->
-        <div id="relationsList">
-            <!-- Aquí se mostrarán las relaciones de seguidores y seguidos -->
-        </div>
+        <div id="relationsList"></div>
     </div>
 
     <script>
@@ -30,16 +76,17 @@
         async function loadProfiles() {
             const response = await fetch('/api/perfiles');
             const profiles = await response.json();
-
             const profilesList = document.getElementById('profilesList');
             profiles.forEach(profile => {
                 const profileCard = document.createElement('div');
                 profileCard.classList.add('profile-card');
                 profileCard.innerHTML = `
-                    <h3>${profile.username}</h3>
-                    <p>${profile.bio}</p>
                     <img src="${profile.imageUrl}" alt="${profile.username}'s profile image">
-                    <p>Publicaciones: ${profile.publicacionesIds.length}</p>
+                    <div>
+                        <h3>${profile.username}</h3>
+                        <p>${profile.bio}</p>
+                        <p>Publicaciones: ${profile.publicacionesIds.length}</p>
+                    </div>
                 `;
                 profilesList.appendChild(profileCard);
             });
@@ -47,15 +94,16 @@
 
         // Función para cargar las relaciones (seguidores y seguidos)
         async function loadRelations(followerId) {
-            const response = await fetch(`/api/relaciones/seguidores/${followerId}`);
-            const followers = await response.json();
-
+            const response = await fetch(`/api/relaciones/seguidos/${followerId}`);
+            const relations = await response.json();
             const relationsList = document.getElementById('relationsList');
-            followers.forEach(relation => {
+            relationsList.innerHTML = ''; // Limpiar las relaciones previas
+
+            relations.forEach(relation => {
                 const relationCard = document.createElement('div');
                 relationCard.classList.add('relation-card');
                 relationCard.innerHTML = `
-                    <p>Usuario ${relation.FollowerId} sigue a ${relation.FollowingId}</p>
+                    <p>Usuario ${relation.followerId} sigue a ${relation.followingId}</p>
                 `;
                 relationsList.appendChild(relationCard);
             });
@@ -64,7 +112,7 @@
         // Cargar datos cuando la página se carga
         window.onload = function() {
             loadProfiles(); // Cargar todos los perfiles
-            const followerId = '12345'; // Aquí puedes poner un ID de ejemplo o tomarlo dinámicamente
+            const followerId = '123'; // Aquí puedes poner el ID de ejemplo o tomarlo dinámicamente
             loadRelations(followerId); // Cargar las relaciones para un usuario específico
         };
     </script>

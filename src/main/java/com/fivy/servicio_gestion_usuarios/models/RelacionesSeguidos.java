@@ -13,7 +13,7 @@ public class RelacionesSeguidos {
     @Id
     private String id; //ID generado por mongoDB
 
-    private String FollowerId; // ID del usuario que sigue
-    private String FollowingId; // ID del usuario seguido
+    private String followerId; // ID del usuario que sigue
+    private String followingId; // ID del usuario seguido
     
 }
