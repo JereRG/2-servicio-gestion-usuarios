@@ -80,7 +80,8 @@ servicio-gestion-usuarios/
 ### PerfilUsuario
 ```java
 public class PerfilUsuario {
-    private String id; // Referencia al usuario
+    private String id; // Id del perfil
+    private String usuarioId; // Referencia al id del usuario
     private String username; // Nombre visible
     private String bio; // Descripción personal
     private String imageUrl; // URL de la foto de perfil
