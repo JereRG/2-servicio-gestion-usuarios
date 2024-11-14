@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfiles y Relaciones</title>
+    <!-- Actualiza la ruta del archivo CSS -->
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <div class="profiles-container">
+        <h1>Perfiles de Usuarios</h1>
+        
+        <!-- Mostrar todos los perfiles -->
+        <div id="profilesList">
+            <!-- Los perfiles se iteran con JavaScript -->
+        </div>
+    </div>
+
+    <div class="relations-container">
+        <h2>Relaciones de Seguimiento</h2>
+        <!-- Mostrar las relaciones de un usuario con sus seguidores y seguidos -->
+        <div id="relationsList">
+            <!-- Aquí se mostrarán las relaciones de seguidores y seguidos -->
+        </div>
+    </div>
+
+    <script>
+        // Función para cargar los perfiles
+        async function loadProfiles() {
+            const response = await fetch('/api/perfiles');
+            const profiles = await response.json();
+
+            const profilesList = document.getElementById('profilesList');
+            profiles.forEach(profile => {
+                const profileCard = document.createElement('div');
+                profileCard.classList.add('profile-card');
+                profileCard.innerHTML = `
+                    <h3>${profile.username}</h3>
+                    <p>${profile.bio}</p>
+                    <img src="${profile.imageUrl}" alt="${profile.username}'s profile image">
+                    <p>Publicaciones: ${profile.publicacionesIds.length}</p>
+                `;
+                profilesList.appendChild(profileCard);
+            });
+        }
+
+        // Función para cargar las relaciones (seguidores y seguidos)
+        async function loadRelations(followerId) {
+            const response = await fetch(`/api/relaciones/seguidores/${followerId}`);
+            const followers = await response.json();
+
+            const relationsList = document.getElementById('relationsList');
+            followers.forEach(relation => {
+                const relationCard = document.createElement('div');
+                relationCard.classList.add('relation-card');
+                relationCard.innerHTML = `
+                    <p>Usuario ${relation.FollowerId} sigue a ${relation.FollowingId}</p>
+                `;
+                relationsList.appendChild(relationCard);
+            });
+        }
+
+        // Cargar datos cuando la página se carga
+        window.onload = function() {
+            loadProfiles(); // Cargar todos los perfiles
+            const followerId = '12345'; // Aquí puedes poner un ID de ejemplo o tomarlo dinámicamente
+            loadRelations(followerId); // Cargar las relaciones para un usuario específico
+        };
+    </script>
+</body>
+</html>
