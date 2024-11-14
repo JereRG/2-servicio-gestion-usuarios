@@ -14,7 +14,7 @@ public class PerfilUsuario {
     
     @Id
     private String id; // Id relacionada con el id del usuario microservicio 1
-    
+    private String usuarioId;
     private String username;
     private String bio;
     private String imageUrl;

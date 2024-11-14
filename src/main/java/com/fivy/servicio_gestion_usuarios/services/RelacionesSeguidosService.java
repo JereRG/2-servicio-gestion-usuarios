@@ -10,9 +10,9 @@ import com.fivy.servicio_gestion_usuarios.repositories.RelacionesSeguidosReposit
 public class RelacionesSeguidosService {
     
     @Autowired
-     private RelacionesSeguidosRepository relacionesSeguidosRepository;
+    private RelacionesSeguidosRepository relacionesSeguidosRepository;
 
-     public List<RelacionesSeguidos> obtenerSeguidores(String followingId) {
+    public List<RelacionesSeguidos> obtenerSeguidores(String followingId) {
         return relacionesSeguidosRepository.findByFollowingId(followingId);
     }
 
