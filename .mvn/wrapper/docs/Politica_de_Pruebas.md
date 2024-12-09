@@ -35,9 +35,6 @@ Nuestra política de pruebas tiene como objetivo garantizar la calidad, fiabilid
 ## Herramientas y Tecnologías
 - **JUnit, Mockito:** Para pruebas unitarias en Java.
 - **Postman, REST Assured:** Para pruebas de API REST.
-- **Selenium:** Para pruebas de interfaz de usuario (si aplica).
-- **JMeter:** Para pruebas de rendimiento.
-- **SonarQube:** Para análisis estático de código.
 
 ## Métricas
 - **Cobertura de código**
