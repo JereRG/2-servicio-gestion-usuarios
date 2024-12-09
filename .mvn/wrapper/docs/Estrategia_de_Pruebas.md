@@ -10,8 +10,7 @@
 - Lógica de servicios
 - Mappers y utilidades  
 **Herramientas:**  
-- Mockito  
-- AssertJ  
+- Mockito    
 
 ### Pruebas de Integración
 **Cobertura objetivo:** 70% mínimo  
@@ -22,7 +21,6 @@
 **Herramientas:**  
 - TestContainers  
 - Spring Boot Test  
-- H2 Database (para pruebas rápidas)  
 
 ### Pruebas de API (E2E)
 **Cobertura objetivo:** 90% de endpoints  
@@ -33,7 +31,6 @@
 **Herramientas:**  
 - REST Assured  
 - Postman (colecciones automatizadas)  
-- Newman (CI/CD)  
 
 ## Tipos de Prueba
 
