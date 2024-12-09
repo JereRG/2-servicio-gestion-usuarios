@@ -28,8 +28,7 @@
 - Validación de endpoints REST
 - Flujos completos de usuario
 - Escenarios de error  
-**Herramientas:**  
-- REST Assured  
+**Herramientas:**    
 - Postman (colecciones automatizadas)  
 
 ## Tipos de Prueba
